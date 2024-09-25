@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #161212;
         }
 
         header {
@@ -17,23 +17,6 @@
             color: #fff;
             padding: 10px 0;
             text-align: center;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-around;
-            padding: 10px;
-            background-color: #444;
-        }
-
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 20px;
-        }
-
-        nav a:hover {
-            background-color: #666;
         }
 
         .accordion {
@@ -51,23 +34,17 @@
         .container {
             width: 80%;
             margin: 20px auto;
-            background-color: #fff;
+            background-color: #878787;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .post {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-
-        .post h2 {
-            color: #333;
-        }
-
-        .post p {
-            color: #555;
+        .panel {
+            padding: 0 18px;
+            background-color: rgb(114, 114, 114);
+            display: none;
+            overflow: hidden;
+            margin-bottom: 10px;
         }
 
         footer {
@@ -89,8 +66,8 @@
 
 
 <div class="container">
-    <button class="accordion">Week 1: First Steps</button>
-    <div class="post">
+    <button class="accordion">Week 0: Setup</button>
+    <div class="panel">
         <h2>Week 0</h2>
         <p>Date: September 25, 2024</p>
         <p>Not much this week, just got this site up and running, looking forward to working on this more!</p>
@@ -100,6 +77,21 @@
 <footer>
     <p>Graphic Design is my passion</p>
 </footer>
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
 
 </body>
 </html>
