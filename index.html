@@ -43,6 +43,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
+        .log-header {
+            background-color: #444; /* Dark background for contrast */
+            color: white; /* White text for readability */
+            text-align: center; /* Center the text */
+            padding: 20px; /* Add some padding for spacing */
+            margin-bottom: 20px; /* Space between header and logs */
+            border-radius: 10px; /* Rounded corners for a smoother look */
+        }
+    
+        h2 {
+            margin: 0; /* Remove default margin */
+        }
+
         .panel {
             padding: 0 18px;
             background-color: rgb(224, 224, 224);
@@ -69,14 +82,9 @@
     <p>Programming | sebasti@umich.edu</p>
 </header>
 
-
 <div class="container">
-    <div class="panel">
+    <div class="panel log-header"></div>
         <h2>Weekly Logs</h2>
-    </div>
-</div>
-
-<div class="container">
     <button class="accordion">Week 0: Setup</button>
     <div class="panel">
         <h2>Week 0</h2>
