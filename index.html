@@ -71,6 +71,19 @@
             bottom: 0;
             width: 100%;
         }
+        pre {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap; /* Allows the code to wrap if needed */
+            word-wrap: break-word;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+            color: #d63384; /* Makes code stand out with color */
+        }
     </style>
 </head>
 <body>
@@ -122,7 +135,190 @@
             <br>Prototyping: 4 Hours
             <br>Overall Time: 28 Hours
             <br>
-            <br>(Not much that can be displayed in video/image format, unless pictures of games I played or code snippets count?)
+            <!-- <br>(Not much that can be displayed in video/image format, unless pictures of games I played or code snippets count?) -->
+            <br>
+            <button class="accordion">Example code from state machine</button>
+            <div class="panel">
+                <pre><code>
+                    using System.Collections;
+                    using System.Collections.Generic;
+                    using UnityEngine;
+
+                    public abstract class State : MonoBehaviour
+                    {
+                        protected Core core;
+                        public bool isComplete {get; protected set;} // wanna access, don't want to show in the editor because it's annoying
+                        protected float startTime;
+                        public float time => Time.time - startTime;
+
+
+                        protected Rigidbody2D rb => core.rb;
+                        protected Animator animator => core.animator;
+
+                        public StateMachine machine;
+                        protected State parent;
+                        public State state => machine.state;
+
+                        public virtual void Enter() {}
+                        public virtual void Do() {}
+                        public virtual void FixedDo() {}
+                        public virtual void Exit() {}
+                        
+                        public void DoBranch(){
+                            Do();
+                            state?.DoBranch(); // Call do on state below
+                        }
+                        public void FixedDoBranch(){
+                            FixedDo();
+                            state?.FixedDoBranch(); // Call do on state below
+                        }
+
+
+
+                        protected void Set(State newState, bool force = false){
+                            machine.Set(newState, force); // here so we don't need to machine.Set every time
+                        }
+                        public void SetCore(Core _core){
+                            machine = new StateMachine();
+                            core = _core;
+                        }
+
+                        public void Initialise(){
+                            isComplete = false;
+                            startTime = Time.time;
+                        }
+                    }
+
+                </code></pre>
+                <pre><code>
+                    using System.Collections;
+                    using System.Collections.Generic;
+                    using UnityEngine;
+
+                    public class StateMachine
+                    {
+                        // Start is called before the first frame update
+                        public State state;
+
+                        public void Set(State newState, bool force = false){
+                            if(state != newState || force){
+                                state?.Exit(); // make sure it aint null
+                                state = newState;
+                                state.Initialise();
+                                state.Enter();
+                            }
+                        }
+                    }
+
+                </code></pre>
+                <pre><code>
+                    using System.Collections;
+                    using System.Collections.Generic;
+                    using UnityEngine;
+
+                    public class PlayerMovement : Core {
+
+                        public RunState runState;
+                        public IdleState idleState;
+                        public JumpState jumpState;
+                        public BoxCollider2D groundCheck;
+                        public LayerMask groundMask;
+
+                        //movement properties
+                        public float acceleration;
+                        [Range(0f, 1f)]
+                        public float groundDecay;
+                        public float maxSpeed;
+
+                        //variables
+                        public float xInput;
+                        public float yInput;
+
+                        void Start(){
+                            SetupInstances();
+                            machine.Set(idleState);
+                        }
+
+                        // Update is called once per frame
+                        void Update() {
+                            CheckInput();
+                            HandleJump();
+
+                            SelectState();
+                            
+                            machine.state.Do();
+                        }
+
+                        void SelectState(){
+
+                            if(groundSensor.grounded){
+                                if (xInput == 0 && yInput == 0){
+                                    machine.Set(idleState);
+                                }
+                                else{
+                                    machine.Set(runState);
+                                }
+                            } 
+                            else{
+                                machine.Set(jumpState);
+                            }
+
+                            
+                        }
+                        void FixedUpdate() {
+                            HandleMovement();
+                            ApplyFriction();
+                        }
+
+                        void CheckInput() {
+                            xInput = Input.GetAxis("Horizontal");
+                            yInput = Input.GetAxis("Vertical");
+                        }
+
+                        void HandleMovement() {
+                            if (Mathf.Abs(xInput) > 0){
+                                float increment = xInput * acceleration;
+                                float newSpeedX = Mathf.Clamp(rb.velocity.x + increment, -maxSpeed, maxSpeed);
+                                rb.velocity = new Vector2(newSpeedX, rb.velocity.y);
+                                FaceInput();
+                            }
+                            if (Mathf.Abs(yInput) > 0){
+                                float increment = yInput * acceleration;
+                                float newSpeedY = Mathf.Clamp(rb.velocity.y + increment, -maxSpeed, maxSpeed);
+                                rb.velocity = new Vector2(rb.velocity.x, newSpeedY);
+                            }
+                            rb.velocity = rb.velocity.magnitude > maxSpeed ? rb.velocity.normalized * maxSpeed : rb.velocity;
+
+                        }
+
+                        void FaceInput() {
+                            float direction = Mathf.Sign(xInput);
+                            transform.localScale = new Vector3(direction, 1, 1);
+                        }
+
+                        void HandleJump() {
+                            if (Input.GetButtonDown("Jump") && groundSensor.grounded) {
+                                return; // Has to change for 3D
+                            }
+                        }
+
+                        
+
+                        void ApplyFriction() {
+                            if (groundSensor.grounded && xInput == 0) {
+                                rb.velocity =  new Vector2(rb.velocity.x*groundDecay, rb.velocity.y);
+                            }
+                            if (groundSensor.grounded && yInput == 0) {
+                                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * groundDecay);
+                            }
+                        }
+
+                        // Need a function for getting damaged and attacking, new states bb
+
+                    }
+
+                </code></pre>
+            </div>
             
 
         </p>
