@@ -323,27 +323,36 @@
             
 
     </div>
-
+    <br>
     <button class="accordion">Week 3: General Gameplay</button>
     <div class="panel">
         <h2>Week 4</h2>
         <p>Date: October 26, 2024</p>
         <p>These last two weeks were mainly trying to get the new 3D implentation of our project, something that wasn't nearly as easy as I'd hoped.
+            <br>To start things off, we had to completely redo basically everything Unity related, porting from any 2D implementation we had into 3D, something that took a very good amount of time, especially since getting phsyics to work the way you want it to doesn't really happen to easily. Mainly what took the most time was trying to get things like the camera to play nice, trying to understand other programmers' code, and how to get the 3D environment to look 2D, something we got to work by using an orthographic camera positioned at an angle above the scene.
+            <br>Now, starting actual game production, we figured we'd get right into the gameplay, trying to make some really simple attack and shooting, as well as enemy characteristics. The attacking and shooting took a good amount of time, with a lot of setbacks mainly due to the 3D nature of the inner workings of the game and hitboxes that, though missing in the 3d scene, felt like they should hit in the 2D perspective of it. To remedy this, we right now are taking the approach of just massively increasing the size of attacks and projectiles so that an angle of 10 degrees off target doesn't completely whiff, but we'll be thinking of other ways to fix this.
+            <br>Those simple attacks in place, we now needed targets, so I went with the good old fashioned enemy that just walks at you. To make it a bit less stagnant I did code it so that it has a few states. It has anchor points within the map between which it can travel, searching for the player. If the player enters it vision range, it starts to chase until the play dies or it gets killed, which should be a decent enough enemy for a prototype.
+            <br>Now, after these really simple gameplay things, we wanted to get a bit of the general style of the game in place, particularly the background and the character model. For the background, I ended up making a parallax model where different background panels moving at different speeds give a big sense of scale to the background behind the player, giving a lot more artistic freedom to our artist. For player art, it was somehow less straightforward, and I had to spend a very good amount of time battling with the Unity animation system. It still isn't perfect, and I ended up needing to hard code frames of the animation in their editor, but it works for now. I hope to start looking more into animation curves in the future to make the process of swapping between animations (what I had the most trouble with) less obvious and hopefully more impactful.
+            <br>Other things we needed for the baseline of our game were pretty simple things like shadows to indicate what depth the character (and enemies) are, which was fairly simple, though it took a few iterations to find out which was the most effective, eventually settling on a script that we just place on a child object of any object we want to have a shadow. At one point I added the ability to aim the shooting, something that showed a cursor on screen, not actually where you were aiming, but at the ground below where you were aiming, to try and make it a bit more intuitive with the quite confusing depth we have. In the end we decided to scrap it, and I think that unless we have a lot more time our aiming system will essentially just be shooting along the X-axis from now on.
+            <br>Doesn't need that much note, but we also got some UI going, namely some pretty important things like health and level progress. 
+            <br>The final thing we did this week was add a checkpoint system, which will be our core gameplay for each level. The stages will be divided into sections where enemies will be roaming, with these "checkpoints" in between that lock the player into a specific location, needing to fight waves of enemies and defeat them all to progress and move forward towards the end. This was implemented with a set of simple scripts that are portioned into a stage manager, a checkpoint manager, and wave managers. The stage manager holds checkpoints which you can place anywhere and trigger when passed, each with wave managers that hold information on what enemy to spawn, how often to spawn them, and deal with checking if the player completed them all.
+            <br>All in all its wasn't the most productive week due to a lot of work from classes (and a lot of exams), which I believe should be mostly done now, so we can work more these next weeks. This next week I think we should be on schedule to get at least one level done, with the main focus being on getting art implementations for attacks and enemies as well as more variants and behaviors for said enemies (and maybe attacks too). 
 
             <br>
             <br>Time Overview:
             <br>Studio Meetings: 2 Hours
             <br>Team Meetings: 2 Hours? (We were all super busy, exam season hits hard)
             <br>Porting State Machine and player movement to 3D: 5 Hours
-            <br>Creating basic attacks (Simple slash and shooting, as well as aiming system which I later removed...): 2 Hours
+            <br>Creating basic attacks (as well as aiming system which I later removed...): 2 Hours
             <br>Parallax Implementation: 1 Hour
+            <br>Enemy AI: 2 Hours
             <br>Simulated 2D Shadow Physics: 1 Hour
             <br>Getting 2D character animations to work: 3 hours (This was horrendous)
             <br>Other Art Implementation: 2 Hours (The ground still doesn't look right)
             <br>General UI (Health, level progress meter, menu, Stage Reset): 1 Hour
             <br>Trying to mess around with camera rotations: 1 Hour (didn't work out)
             <br>Creating Checkpoint System: 4 Hours 
-            <br>Overall Time: 24 Hours
+            <br>Overall Time: 26 Hours
             <br>
             <br>(If all goes right, next week should be less confusing, this week helped me learn where I messed all that stuff up)
 
