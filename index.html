@@ -381,6 +381,75 @@
         </video>
         <br>
     </div>
+    <br>
+    <button class="accordion">Week 6: Animation and Gameplay Polishing (or at least the start of it)</button>
+    <div class="panel">
+        <h2>Week 6</h2>
+        <p>Date: November 10, 2024</p>
+        <p>The first week this time basically was all just implementations for the game itself, like combat and enemies, the stuff you need aside from the structure of the game.
+            <br>In terms of enemy variety, we now have way more than the single enemy that just walks at you. I implemented 4 types of enemies, 3 being new. 
+            <br>To start off, theres the enemy that just runs at you, simple enough. 
+            <br>Next up is a throwing enemy that lobs AoE fire at you to encourage proactive gameplay and discourage sitting in a corner and throwing ranged attacks.
+            <br>After that is a charging enemy, which has a glowing indicator towards the player before charging, making the gameplay a lot faster paced.
+            <br>Lastly is an example boss. This isn't a final rendition, but it gives a simple idea of what could be the final enemy at the end of a stage, less of a swarm, a more traditional boss fight.
+            <br>
+        </p>
+    
+        <p>Here's some videos of the enemies.</p>
+        <br>
+        <video width="560" height="315" controls>
+            <source src="videos/Enemy1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <video width="560" height="315" controls>
+            <source src="videos/Enemy2.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <video width="560" height="315" controls>
+            <source src="videos/Enemy3.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <video width="560" height="315" controls>
+            <source src="videos/Enemy4.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <p>
+            <br>A side note before moving on, since we had a bunch of backgrounds from our art member, we decided to make a few levels, so we essentially just copied out our first level, changing level size, enemy placement and type, etc., until we had 4 levels. There isn't much to show for them that isn't just art or very similar looking gameplay, but it is there.
+            <br>Next up is animation implementation, something that I was horrendous at. Not going to lie, this took longer than it should have, with a lot of staring at the animation tabs wondering why it wasn't working, often still not even understanding after somehow fixing the issues. I have gotten slightly better which hopefully will reduce the time this will take in the future, but it's definitely something I plan to work on improving more.
+            <br>The main takeaways for animation are that we have new backgrounds (and revamped the parallax scripts a bit to accomodate some), animations for basic melee and ranged attacks, and some things like a backstep ranged attack and projectile animations. 
+            <br>Getting these animations helped give a feel for the pacing of the combat, so I changed up some of the mechanics, like making the melee faster, the projectile move you backwards a bit to give it weight, and adding a slide to make the movement more fast paced and forgiving (though we do still need an animation for it).
+            <br>Here's a general with the animations now in place, as well as some slightly better combat mechanics.
+        </p>
+        <br>
+        <video width="560" height="315" controls>
+            <source src="videos/AnimStuff.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <p>Here's a simple tree with stuff about how the actual controllers for each element of the game works at this point in time. The way we made things actually means that, oddly enough, the simplest enemies should be the bosses, each essentially randomly choosing singular moves to throw out. In the player controller within the blue squares are ideas of sub-states that I think we could add as a group to make the gameplay more interesting given more time, but most likely won't be added due to time constraints.</p>
+        <br>
+        <img src="videos/trees.png" alt="Tree Stuff"> 
+        <br>
+        <p>Another thing that happened to a small extent was playtesting as well. This wasn't all that extensive and needs more work put into it, but from the small sample size there still were some good suggestions I intend to work on. For one, the movement and combat felt slow, which I agree with, and also the difficulty was too high, something I didn't really think about but now that I know I'll try to tone it down a bit.</p>
+        <br>
+        <p>
+            <br>Time Overview:
+            <br>Studio Meetings: 4 Hours
+            <br>Team Meetings: 1 Hour
+            <br>Enemy Creation: 8 Hours
+            <br>Stage Creation: 2 Hours
+            <br>Animations: 4 Hours (Getting used to Unity animations was brutal)
+            <br>Parallax Bugfixing: 1 Hour
+            <br>Player Movement Polishing: 3 Hours (still needs work, only a single move has a follow up and still feels clunky, damage feels off)
+            <br>Playtesting: 1 Hour (need to do more of this)
+            <br>Total Time: 24 Hours
+            <br>
+        </p>
+    </div>
 
 </div>
 
